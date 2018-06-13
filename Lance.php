@@ -1,25 +1,23 @@
 <?php
 
-class Lance{
-
-private $usuario;
-private $valor;
-
-function __construct(Usuario $usuario, $valor)
+class Lance
 {
-  $this->usuario = $usuario;
-  $this->valor = $valor;
-}
+    private $usuario;
+    private $valor;
 
-public function getUsuario()
-{
-  return $this->usuario;
-}
+    public function __construct(Usuario $usuario, $valor)
+    {
+        $this->usuario = $usuario;
+        $this->valor = $valor;
+    }
 
-public function getValor()
-{
-  return $this->valor;
-}
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
 
-
+    public function getValor()
+    {
+        return $this->valor;
+    }
 }

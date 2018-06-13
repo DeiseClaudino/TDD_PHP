@@ -5,7 +5,7 @@ require_once 'Lance.php';
 require_once 'Leilao.php';
 require_once 'Avaliador.php';
 
-class AvaliadorTest
+class AvaliadorTest extends PHPUnit_Framework_TestCase
 {
     public function test()
     {
@@ -25,7 +25,7 @@ class AvaliadorTest
         $maiorEsperado = 400;
         $menorEsperado = 250;
 
-        var_dump( $leiloeiro->getMaiorLance() == $maiorEsperado);
-        var_dump($leiloeiro->getMenorLance() == $menorEsperado);
+        $this->assertEquals($leiloeiro->getMaiorLance(), $maiorEsperado);
+        $this->assertEquals($leiloeiro->getMenorLance(), $menorEsperado);
     }
 }

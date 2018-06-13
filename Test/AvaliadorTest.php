@@ -30,27 +30,48 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
     }
 
+    public function testAceitaLeilaoComUmLance()
+    {
+        $joao = new Usuario("Joao");
 
-    public function testDeveCalcularAMedia() {
+        $leilao = new Leilao("Playstation 3");
 
-    $joao = new Usuario("Joao");
-    $jose = new Usuario("José");
-    $maria = new Usuario("Maria");
+        $leilao->propoe(new Lance($joao, 250));
 
-    $leilao = new Leilao("Playstation 3 Novo");
+        $leiloeiro = new Avaliador();
+        $leiloeiro->avalia($leilao);
 
-    $leilao->propoe(new Lance($maria,300.0));
-    $leilao->propoe(new Lance($joao,400.0));
-    $leilao->propoe(new Lance($jose,500.0));
+        $maiorEsperado = 250;
+        $menorEsperado = 250;
 
-
-    $leiloeiro = new Avaliador();
-    $leiloeiro->avalia($leilao);
-
-
-    $this->assertEquals(400, $leiloeiro->getMedia(), 0.0001);
-}
+        $this->assertEquals($maiorEsperado, $leiloeiro->getMaiorLance());
+        $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
+    }
 
 
 
+
+
+
+
+
+    public function testDeveCalcularAMedia()
+    {
+        $joao = new Usuario("Joao");
+        $jose = new Usuario("José");
+        $maria = new Usuario("Maria");
+
+        $leilao = new Leilao("Playstation 3 Novo");
+
+        $leilao->propoe(new Lance($maria, 300.0));
+        $leilao->propoe(new Lance($joao, 400.0));
+        $leilao->propoe(new Lance($jose, 500.0));
+
+
+        $leiloeiro = new Avaliador();
+        $leiloeiro->avalia($leilao);
+
+
+        $this->assertEquals(400, $leiloeiro->getMedia(), 0.0001);
+    }
 }

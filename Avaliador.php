@@ -2,9 +2,10 @@
 
 class Avaliador
 {
-    private $maiorDeTodos = -INF;
-    private $menorDeTodos = INF;
+    private $maiorDeTodos = -10000;
+    private $menorDeTodos = 10000;
     private $media = 0;
+
     public function avalia(Leilao $leilao)
     {
         $total = 0;
@@ -19,6 +20,20 @@ class Avaliador
             $this->media = $total / count($leilao->getLances());
         }
     }
+
+
+    public function pegaOsMaioresNo(Leilao $leilao) {
+
+         $lances = $leilao->getLances();
+         usort($lances,function ($a,$b) {
+             if($a->getValor() == $b->getValor()) return 0;
+             return ($a->getValor() < $b->getValor()) ? 1 : -1;
+         });
+
+         $this->maiores = array_slice($lances, 0,3);
+     }
+
+
 
     public function getMaiorLance()
     {

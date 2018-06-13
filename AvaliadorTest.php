@@ -7,7 +7,7 @@ require_once 'Avaliador.php';
 
 class AvaliadorTest
 {
-    public function testa()
+    public function test()
     {
         $leilao = new Leilao("Playstation 3");
 
@@ -16,13 +16,16 @@ class AvaliadorTest
         $felipe = new Usuario("Felipe");
 
         $leilao->propoe(new Lance($joao, 300));
-        $leilao->propoe(new Lance($renan, 450));
+        $leilao->propoe(new Lance($renan, 400));
         $leilao->propoe(new Lance($felipe, 250));
 
         $leiloeiro = new Avaliador();
         $leiloeiro->avalia($leilao);
 
-        var_dump( $leiloeiro->getMaiorLance());
-        var_dump($leiloeiro->getMenorLance());
+        $maiorEsperado = 400;
+        $menorEsperado = 250;
+
+        var_dump( $leiloeiro->getMaiorLance() == $maiorEsperado);
+        var_dump($leiloeiro->getMenorLance() == $menorEsperado);
     }
 }

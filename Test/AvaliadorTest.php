@@ -30,23 +30,6 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
     }
 
-    public function testAceitaLeilaoComUmLance()
-    {
-        $joao = new Usuario("Joao");
-
-        $leilao = new Leilao("Playstation 3");
-
-        $leilao->propoe(new Lance($joao, 250));
-
-        $leiloeiro = new Avaliador();
-        $leiloeiro->avalia($leilao);
-
-        $maiorEsperado = 250;
-        $menorEsperado = 250;
-
-        $this->assertEquals($maiorEsperado, $leiloeiro->getMaiorLance());
-        $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
-    }
 
     public function testpegaOstresLMaiores()
     {

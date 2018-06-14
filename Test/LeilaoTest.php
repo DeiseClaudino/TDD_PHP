@@ -1,8 +1,5 @@
 <?php
-require_once 'Usuario.php';
-require_once 'Lance.php';
-require_once 'Leilao.php';
-require_once 'Avaliador.php';
+require_once 'carregaClasses.php';
 
 class LeilaoTest extends PHPUnit\Framework\TestCase
 {

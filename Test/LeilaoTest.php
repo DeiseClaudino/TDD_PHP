@@ -19,6 +19,25 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(2000, $leilao->getLances()[0]->getValor());
     }
 
+      public function testDeveBarrarDoisLancesSeguidos()
+      {
+        $leilao = new Leilao("Macbook");
+
+        $joao = new Usuario("Joao");
+
+        $leilao->propoe(new Lance($joao, 2000));
+        $leilao->propoe(new Lance($joao, 2500));
+
+        $this->assertEquals(1, count($leilao->getLances()));
+        $this->assertEquals(2000, $leilao->getLances()[0]->getValor());
+      }
+
+
+
+
+
+
+
 
     public function testAceitaLeilaoComVariosLances()
     {

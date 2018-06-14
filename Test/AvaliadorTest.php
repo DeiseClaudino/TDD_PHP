@@ -48,30 +48,27 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
     }
 
-
-
-
-
-
-
-
-    public function testDeveCalcularAMedia()
+    public function pegaOstresLMaiores()
     {
-        $joao = new Usuario("Joao");
-        $jose = new Usuario("José");
-        $maria = new Usuario("Maria");
+      $joao = new Usuario("Joao");
+      $renan = new Usuario("Renan");
+      $felipe = new Usuario("Felipe");
 
-        $leilao = new Leilao("Playstation 3 Novo");
+      $leilao = new Leilao("Playstation 3");
 
-        $leilao->propoe(new Lance($maria, 300.0));
-        $leilao->propoe(new Lance($joao, 400.0));
-        $leilao->propoe(new Lance($jose, 500.0));
+      $leilao->propoe(new Lance($joao, 250));
+      $leilao->propoe(new Lance($renan, 300));
+      $leilao->propoe(new Lance($felipe, 400));
 
+      $leiloeiro = new Avaliador();
 
-        $leiloeiro = new Avaliador();
-        $leiloeiro->avalia($leilao);
+      $leiloeiro->avalia($leilao);
 
+      $maiores = $leiloeiro->getTresMaiores();
 
-        $this->assertEquals(400, $leiloeiro->getMedia(), 0.0001);
+      $this->assertEquals(count($maiores), 3);
+
     }
+
+
 }

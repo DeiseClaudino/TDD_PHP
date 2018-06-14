@@ -49,4 +49,9 @@ class Avaliador
     {
         return $this->media;
     }
+    public function getTresMaiores()
+    {
+      return $this->maiores;
+    }
+
 }

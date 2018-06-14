@@ -57,4 +57,13 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(10, count($leilao->getLances()));
         $this->assertEquals(11000, $leilao->getLances()[9]->getValor());
     }
+
+
+
+    public function dobraLance(Usuario $usuario)
+    {
+      
+
+
+    }
 }

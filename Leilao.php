@@ -13,12 +13,18 @@ class Leilao
 
     public function propoe(Lance $lance)
     {
-      $total = $this->contaLancesDo($lance->getUsuario());
-        if (count($this->lances) == 0 ||
-        $this->pegaUltimoLance()->getUsuario()
-       != $lance->getUsuario() && $total < 5) {
+      if (count($this->lances) == 0 || $this->podeDarLance($lance->getUsuario())
+        ) {
             $this->lances[] = $lance;
         }
+    }
+
+    private function podeDarLance(Usuario $usuario){
+
+      $total = $this->contaLancesDo($usuario);
+
+    return $this->pegaUltimoLance()->getUsuario() != $usuario && $total < 5;
+
     }
 
     private function contaLancesDo(Usuario $usuario)
@@ -26,9 +32,9 @@ class Leilao
         $total = 0;
 
         foreach ($this->lances as $lanceAtual) {
-            if ($lanceAtual->getUsuario() == $usuario) {
+            if ($lanceAtual->getUsuario() == $usuario){
                 $total++;
-            }
+              }
         }
         return $total;
     }
@@ -36,7 +42,7 @@ class Leilao
 
     public function pegaUltimoLance()
     {
-        return  $this->lances[count($this->lances) -1 ];
+        return  $this->lances[count($this->lances) -1];
     }
 
     public function getDescricao()

@@ -33,12 +33,6 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
       }
 
 
-
-
-
-
-
-
     public function testAceitaLeilaoComVariosLances()
     {
         $joao = new Usuario("Joao");

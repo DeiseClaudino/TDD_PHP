@@ -13,7 +13,11 @@ class Leilao
 
     public function propoe(Lance $lance)
     {
-        $this->lances[] = $lance;
+        if (count($this->lances) == 0 ||
+      $this->lances[count($this->lances) -1 ]->getUsuario()
+       != $lance->getUsuario()) {
+            $this->lances[] = $lance;
+        }
     }
 
     public function getDescricao()

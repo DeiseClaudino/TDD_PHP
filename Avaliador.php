@@ -17,21 +17,23 @@ class Avaliador
                 $this->menorDeTodos = $lance->getValor();
                 $total += $lance->getValor();
             }
-            $this->media = $total / count($leilao->getLances());
+            $this->pegaOsMaioresNo($leilao);
         }
     }
 
 
-    public function pegaOsMaioresNo(Leilao $leilao) {
+    public function pegaOsMaioresNo(Leilao $leilao)
+    {
+        $lances = $leilao->getLances();
+        usort($lances, function ($a, $b) {
+            if ($a->getValor() == $b->getValor()) {
+                return 0;
+            }
+            return ($a->getValor() < $b->getValor()) ? 1 : -1;
+        });
 
-         $lances = $leilao->getLances();
-         usort($lances,function ($a,$b) {
-             if($a->getValor() == $b->getValor()) return 0;
-             return ($a->getValor() < $b->getValor()) ? 1 : -1;
-         });
-
-         $this->maiores = array_slice($lances, 0,3);
-     }
+        $this->maiores = array_slice($lances, 0, 3);
+    }
 
 
 
@@ -45,13 +47,8 @@ class Avaliador
         return $this->menorDeTodos;
     }
 
-    public function getMedia()
-    {
-        return $this->media;
-    }
     public function getTresMaiores()
     {
-      return $this->maiores;
+        return $this->maiores;
     }
-
 }

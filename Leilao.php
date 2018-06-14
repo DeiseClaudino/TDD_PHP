@@ -13,15 +13,30 @@ class Leilao
 
     public function propoe(Lance $lance)
     {
-        if (count($this->lances) == 0 || $this->pegaUltimoLance()->getUsuario()
-       != $lance->getUsuario()) {
+      $total = $this->contaLancesDo($lance->getUsuario());
+        if (count($this->lances) == 0 ||
+        $this->pegaUltimoLance()->getUsuario()
+       != $lance->getUsuario() && $total < 5) {
             $this->lances[] = $lance;
         }
     }
 
+    private function contaLancesDo(Usuario $usuario)
+    {
+        $total = 0;
+
+        foreach ($this->lances as $lanceAtual) {
+            if ($lanceAtual->getUsuario() == $usuario) {
+                $total++;
+            }
+        }
+        return $total;
+    }
+
+
     public function pegaUltimoLance()
     {
-    return  $this->lances[count($this->lances) -1 ];
+        return  $this->lances[count($this->lances) -1 ];
     }
 
     public function getDescricao()

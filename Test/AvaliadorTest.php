@@ -2,6 +2,7 @@
 
 require_once 'carregaClasses.php';
 
+
 class AvaliadorTest extends PHPUnit\Framework\TestCase
 {
     public function testEmOrdemDecrescente()

@@ -1,6 +1,7 @@
 <?php
 require_once 'carregaClasses.php';
 
+
 class LeilaoTest extends PHPUnit\Framework\TestCase
 {
     public function testDeveProporUmLance()
@@ -62,32 +63,16 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
 
     public function testDobraLance()
     {
-        $lance = new Lance("Macbook");
+        $leilao = new Leilao("Macbook");
 
         $jobs = new Usuario("Jobs");
         $gates = new Usuario("Gates");
 
-        $leilao->propoe(new Lance($jobs, 100));
         $leilao->propoe(new Lance($gates, 200));
-
         $leilao->propoe(new Lance($jobs, 300));
-        $leilao->propoe(new Lance($gates, 400));
 
-        $leilao->propoe(new Lance($jobs, 500));
-        $leilao->propoe(new Lance($gates, 600));
+        $leilao->dobraLance($gates);
 
-        $leilao->propoe(new Lance($jobs, 700));
-        $leilao->propoe(new Lance($gates, 800));
-
-        $leilao->propoe(new Lance($jobs, 900));
-
-
-        $leilao->propoe(new Lance($jobs, 1000));
-
-        $dobraLance = new Lance($leilao->getLances()[9]->getValor() * 2);
-
-
-        $this->assertEquals(10, count($leilao->getLances()));
-        $this->assertEquals(2000, $leilao->getLances()[9]->getValor());
+        $this->assertEquals(400, $leilao->getLances()[2]->getValor());
     }
 }

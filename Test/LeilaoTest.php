@@ -6,6 +6,15 @@ require_once 'ConstrutorDeLeilao.php';
 
 class LeilaoTest extends PHPUnit\Framework\TestCase
 {
+    public static function setUpBeforeClass()
+    {
+        var_dump("before class");
+    }
+
+    public static function tearDownAfterClass()
+    {
+        var_dump("after class");
+    }
     public function testDeveProporUmLance()
     {
         $construtor = new ConstrutorDeLeilao();
@@ -33,11 +42,10 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
 
     public function testDeveDarNoMaximo5Lances()
     {
+        $jobs = new Usuario("Jobs");
+        $gates = new Usuario("Gates");
 
-      $jobs = new Usuario("Jobs");
-      $gates = new Usuario("Gates");
-
-      $construtor = new ConstrutorDeLeilao();
+        $construtor = new ConstrutorDeLeilao();
         $leilao = $construtor->para("Macbook")
 
         ->lance($jobs, 2000)

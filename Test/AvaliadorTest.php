@@ -65,4 +65,9 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($maiores[1]->getValor(), 300);
         $this->assertEquals($maiores[2]->getValor(), 250);
     }
+
+    public function tearDown()
+    {
+        var_dump("fim");
+    }
 }

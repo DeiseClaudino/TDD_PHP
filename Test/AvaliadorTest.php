@@ -1,7 +1,10 @@
 <?php
 
-require_once 'carregaClasses.php';
-
+//require_once 'carregaClasses.php';
+require_once 'Usuario.php';
+require_once 'Lance.php';
+require_once 'Leilao.php';
+require_once 'Avaliador.php';
 
 class AvaliadorTest extends PHPUnit\Framework\TestCase
 {
@@ -17,7 +20,7 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->renan = new Usuario("Renan");
         $this->felipe = new Usuario("Felipe");
     }
-    
+
     public function testEmOrdemDecrescente()
     {
         $leilao = new Leilao("Playstation 3");
@@ -26,22 +29,22 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $leilao->propoe(new Lance($this->renan, 400));
         $leilao->propoe(new Lance($this->felipe, 250));
 
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $this->assertEquals($maiorEsperado, $leiloeiro->getMaiorLance());
-        $this->assertEquals($menorEsperado, $leiloeiro->getMenorLance());
+        $this->assertEquals(400, $this->leiloeiro->getMaiorLance());
+        $this->assertEquals(250, $this->leiloeiro->getMenorLance());
     }
 
     public function testDeveEntenderLeilaoComApenasUmLance()
     {
         $leilao = new Leilao("Playstation 3 Novo");
 
-        $leilao->propoe(new Lance($joao, 1000.0));
+        $leilao->propoe(new Lance($this->joao, 1000.0));
 
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $this->assertEquals(1000.0, $leiloeiro->getMaiorLance(), 0.00001);
-        $this->assertEquals(1000.0, $leiloeiro->getMenorLance(), 0.00001);
+        $this->assertEquals(1000.0, $this->leiloeiro->getMaiorLance(), 0.00001);
+        $this->assertEquals(1000.0, $this->leiloeiro->getMenorLance(), 0.00001);
     }
 
 
@@ -50,15 +53,15 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
     {
         $leilao = new Leilao("Playstation 3");
 
-        $leilao->propoe(new Lance($joao, 250));
-        $leilao->propoe(new Lance($renan, 300));
-        $leilao->propoe(new Lance($felipe, 400));
+        $leilao->propoe(new Lance($this->joao, 250));
+        $leilao->propoe(new Lance($this->renan, 300));
+        $leilao->propoe(new Lance($this->felipe, 400));
 
-        $leiloeiro->avalia($leilao);
+        $this->leiloeiro->avalia($leilao);
 
-        $maiores = $leiloeiro->getTresMaiores();
+        $maiores = $this->leiloeiro->getTresMaiores();
 
-        $this->assertEquals(count($maiores), 3);
+        $this->assertEquals(3, count($maiores));
 
         $this->assertEquals($maiores[0]->getValor(), 400);
         $this->assertEquals($maiores[1]->getValor(), 300);

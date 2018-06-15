@@ -41,17 +41,22 @@ class Leilao
 
     public function dobraLance(Usuario $usuario)
     {
+      $ultimoLance = $this->ultimoLanceDo($usuario);
+
+      $this->propoe(new Lance($usuario, $ultimoLance->getValor()* 2));
+    }
+
+    private function ultimoLanceDo(Usuario $usuario)
+    {
       $ultimo = null;
       foreach ($this->lances as $lance) {
         if ($lance->getUsuario()->getNome() == $usuario->getNome()) {
           $ultimo = $lance;
         }
-      }
 
-    $this->propoe(new Lance($usuario, $ultimo->getValor()* 2));
+        return $ultimo;
     }
-
-
+}
     public function pegaUltimoLance()
     {
         return  $this->lances[count($this->lances) -1];

@@ -19,11 +19,14 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
 
     public function testEmOrdemDecrescente()
     {
-        $leilao = new Leilao("Playstation 3");
+        $construtor = new ConstrutorDeLeilao();
 
-        $leilao->propoe(new Lance($this->joao, 300));
-        $leilao->propoe(new Lance($this->renan, 400));
-        $leilao->propoe(new Lance($this->felipe, 250));
+        $leilao = $construtor->para("Playstation 3")
+
+        ->lance($this->joao, 300)
+        ->lance($this->renan, 400)
+        ->lance($this->felipe, 250)
+        ->constroi();
 
         $this->leiloeiro->avalia($leilao);
 
@@ -33,9 +36,11 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
 
     public function testDeveEntenderLeilaoComApenasUmLance()
     {
-        $leilao = new Leilao("Playstation 3 Novo");
+        $construtor = new ConstrutorDeLeilao();
 
-        $leilao->propoe(new Lance($this->joao, 1000.0));
+        $leilao = $construtor->para("Playstation 3 Novo")
+        ->lance($this->joao, 1000.0)
+        ->constroi();
 
         $this->leiloeiro->avalia($leilao);
 
@@ -52,8 +57,8 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         ->lance($this->joao, 250)
         ->lance($this->renan, 300)
         ->lance($this->felipe, 400)
-         ->constroi();
-        ;
+        ->constroi();
+
 
         $this->leiloeiro->avalia($leilao);
 
@@ -64,10 +69,5 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($maiores[0]->getValor(), 400);
         $this->assertEquals($maiores[1]->getValor(), 300);
         $this->assertEquals($maiores[2]->getValor(), 250);
-    }
-
-    public function tearDown()
-    {
-        var_dump("fim");
     }
 }

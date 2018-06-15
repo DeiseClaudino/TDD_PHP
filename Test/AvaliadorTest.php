@@ -1,10 +1,6 @@
 <?php
 
-//require_once 'carregaClasses.php';
-require_once 'Usuario.php';
-require_once 'Lance.php';
-require_once 'Leilao.php';
-require_once 'Avaliador.php';
+require_once 'carregaClasses.php';
 
 class AvaliadorTest extends PHPUnit\Framework\TestCase
 {
@@ -51,11 +47,13 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
 
     public function testpegaOstresLMaiores()
     {
-        $leilao = new Leilao("Playstation 3");
-
-        $leilao->propoe(new Lance($this->joao, 250));
-        $leilao->propoe(new Lance($this->renan, 300));
-        $leilao->propoe(new Lance($this->felipe, 400));
+        $construtor = new ConstrutorDeLeilao();
+        $leilao = $construtor->para("Playstation 3")
+        ->lance($this->joao, 250)
+        ->lance($this->renan, 300)
+        ->lance($this->felipe, 400)
+         ->constroi();
+        ;
 
         $this->leiloeiro->avalia($leilao);
 

@@ -60,10 +60,34 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
 
 
 
-    public function dobraLance(Usuario $usuario)
+    public function testDobraLance()
     {
-      
+        $lance = new Lance("Macbook");
+
+        $jobs = new Usuario("Jobs");
+        $gates = new Usuario("Gates");
+
+        $leilao->propoe(new Lance($jobs, 100));
+        $leilao->propoe(new Lance($gates, 200));
+
+        $leilao->propoe(new Lance($jobs, 300));
+        $leilao->propoe(new Lance($gates, 400));
+
+        $leilao->propoe(new Lance($jobs, 500));
+        $leilao->propoe(new Lance($gates, 600));
+
+        $leilao->propoe(new Lance($jobs, 700));
+        $leilao->propoe(new Lance($gates, 800));
+
+        $leilao->propoe(new Lance($jobs, 900));
 
 
+        $leilao->propoe(new Lance($jobs, 1000));
+
+        $dobraLance = new Lance($leilao->getLances()[9]->getValor() * 2);
+
+
+        $this->assertEquals(10, count($leilao->getLances()));
+        $this->assertEquals(2000, $leilao->getLances()[9]->getValor());
     }
 }

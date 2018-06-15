@@ -13,18 +13,17 @@ class Leilao
 
     public function propoe(Lance $lance)
     {
-      if (count($this->lances) == 0 || $this->podeDarLance($lance->getUsuario())
+        if (count($this->lances) == 0 || $this->podeDarLance($lance->getUsuario())
         ) {
             $this->lances[] = $lance;
         }
     }
 
-    private function podeDarLance(Usuario $usuario){
+    private function podeDarLance(Usuario $usuario)
+    {
+        $total = $this->contaLancesDo($usuario);
 
-      $total = $this->contaLancesDo($usuario);
-
-    return $this->pegaUltimoLance()->getUsuario() != $usuario && $total < 5;
-
+        return $this->pegaUltimoLance()->getUsuario() != $usuario && $total < 5;
     }
 
     private function contaLancesDo(Usuario $usuario)
@@ -32,31 +31,32 @@ class Leilao
         $total = 0;
 
         foreach ($this->lances as $lanceAtual) {
-            if ($lanceAtual->getUsuario() == $usuario){
+            if ($lanceAtual->getUsuario() == $usuario) {
                 $total++;
-              }
+            }
         }
         return $total;
     }
 
     public function dobraLance(Usuario $usuario)
     {
-      $ultimoLance = $this->ultimoLanceDo($usuario);
-
-      $this->propoe(new Lance($usuario, $ultimoLance->getValor()* 2));
+        $ultimoLance = $this->ultimoLanceDo($usuario);
+        if ($ultimoLance != null) {
+            $this->propoe(new Lance($usuario, $ultimoLance->getValor()* 2));
+        }
     }
 
     private function ultimoLanceDo(Usuario $usuario)
     {
-      $ultimo = null;
-      foreach ($this->lances as $lance) {
-        if ($lance->getUsuario()->getNome() == $usuario->getNome()) {
-          $ultimo = $lance;
-        }
+        $ultimo = null;
+        foreach ($this->lances as $lance) {
+            if ($lance->getUsuario()->getNome() == $usuario->getNome()) {
+                $ultimo = $lance;
+            }
 
-        return $ultimo;
+            return $ultimo;
+        }
     }
-}
     public function pegaUltimoLance()
     {
         return  $this->lances[count($this->lances) -1];

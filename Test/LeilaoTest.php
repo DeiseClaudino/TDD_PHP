@@ -75,4 +75,15 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals(400, $leilao->getLances()[2]->getValor());
     }
+
+
+    public function testnaoDobraSemLanceAnterior()
+    {
+      $leilao = new Leilao("Macbook");
+      $jobs = new Usuario("Jobs");
+
+      $leilao->dobraLance($jobs);
+
+      $this->assertEquals(0, count($leilao->getLances()));
+    }
 }

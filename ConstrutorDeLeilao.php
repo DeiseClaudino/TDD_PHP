@@ -1,6 +1,7 @@
 <?php
-
-require_once 'carregaClasses.php';
+require_once 'Avaliador.php';
+require_once 'ConstrutorDeLeilao.php';
+//require_once 'carregaClasses.php';
 
 class ConstrutorDeLeilao
 {

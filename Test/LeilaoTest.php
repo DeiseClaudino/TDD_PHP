@@ -1,30 +1,20 @@
 <?php
-require_once 'Avaliador.php';
-require_once 'ConstrutorDeLeilao.php';
-//require_once 'carregaClasses.php';
+ //require_once 'ConstrutorDeLeilao.php';
+require_once 'carregaClasses.php';
 
 
 class LeilaoTest extends PHPUnit\Framework\TestCase
 {
-    public static function setUpBeforeClass()
-    {
-        var_dump("before class");
-    }
-
-    public static function tearDownAfterClass()
-    {
-        var_dump("after class");
-    }
     public function testDeveProporUmLance()
     {
         $construtor = new ConstrutorDeLeilao();
         $leilao = $construtor->para("Macbook")->constroi();
         $this->assertEquals(0, count($leilao->getLances()));
 
-        $leilao->propoe(new Lance(new Usuario("Joao"), 2000));
+        $leilao->propoe(new Lance(new Usuario("Steve Jobs"), 2000));
 
         $this->assertEquals(1, count($leilao->getLances()));
-        $this->assertEquals(2000, $leilao->getLances()[0]->getValor());
+        $this->assertEquals(2000.0, $leilao->getLances()[0]->getValor(), 0.00001);
     }
 
     public function testDeveBarrarDoisLancesSeguidos()
@@ -39,7 +29,6 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
         $this->assertEquals(1, count($leilao->getLances()));
         $this->assertEquals(2000, $leilao->getLances()[0]->getValor());
     }
-
     public function testDeveDarNoMaximo5Lances()
     {
         $jobs = new Usuario("Jobs");
@@ -72,30 +61,48 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
     }
 
 
+        public function testDobraLance()
+        {
+            $jobs = new Usuario("Jobs");
+            $gates = new Usuario("Gates");
 
-    public function testDobraLance()
-    {
-        $leilao = new Leilao("Macbook");
+            $construtor = new ConstrutorDeLeilao();
 
-        $jobs = new Usuario("Jobs");
-        $gates = new Usuario("Gates");
+            $leilao = $construtor->para("Macbook")
 
-        $leilao->propoe(new Lance($gates, 200));
-        $leilao->propoe(new Lance($jobs, 300));
+            ->lance($gates, 200)
+            ->lance($jobs, 300)
+            ->constroi();
 
-        $leilao->dobraLance($gates);
+            $leilao->dobraLance($gates);
 
-        $this->assertEquals(400, $leilao->getLances()[2]->getValor());
-    }
+            $this->assertEquals(400, $leilao->getLances()[2]->getValor());
+        }
 
 
-    public function testnaoDobraSemLanceAnterior()
-    {
-        $leilao = new Leilao("Macbook");
-        $jobs = new Usuario("Jobs");
+        public function testnaoDobraSemLanceAnterior()
+        {
+            $jobs = new Usuario("Jobs");
 
-        $leilao->dobraLance($jobs);
+            $construtor = new ConstrutorDeLeilao();
 
-        $this->assertEquals(0, count($leilao->getLances()));
-    }
+            $leilao = $construtor->para("Macbook")->constroi();
+
+            $leilao->dobraLance($jobs);
+
+            $this->assertEquals(0, count($leilao->getLances()));
+        }
+
+        public function testNaoAvaliarSemLance()
+        {
+          $construtor = new ConstrutorDeLeilao();
+
+          $leilao = $construtor->para("Macbook")
+          ->constroi();
+
+          $leiloeiro->avalia($leilao);
+        }
+
+
+
 }

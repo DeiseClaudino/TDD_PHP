@@ -11,7 +11,6 @@ class Avaliador
         if (count($leilao->getLances()) == 0) {
              throw new InvalidArgumentException('Um leilao precisa ter no minimo um lance');
         }
-
         $total = 0;
 
         foreach ($leilao->getLances() as $lance) {

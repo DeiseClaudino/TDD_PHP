@@ -83,4 +83,22 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
           ->constroi();
           $this->leiloeiro->avalia($leilao);
         }
+
+        /**
+        * @expectedException InvalidArgumentException
+        */
+
+        public function testNaoAceitaZero()
+        {
+          $construtor = new ConstrutorDeLeilao();
+
+          $leilao = $construtor
+          ->para("Macbook")
+          ->lance($this->joao, 0)
+          ->constroi();
+
+          $this->leiloeiro->avalia($leilao);
+        }
+
+
     }

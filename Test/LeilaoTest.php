@@ -1,5 +1,4 @@
 <?php
-require_once 'ConstrutorDeLeilao.php';
 require_once 'carregaClasses.php';
 
 

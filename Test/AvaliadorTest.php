@@ -1,6 +1,10 @@
 <?php
-
-require_once 'carregaClasses.php';
+require_once 'Usuario.php';
+require_once 'Lance.php';
+require_once 'Leilao.php';
+require_once 'Avaliador.php';
+require_once 'ConstrutorDeLeilao.php';
+//require_once 'carregaClasses.php';
 
 class AvaliadorTest extends PHPUnit\Framework\TestCase
 {
@@ -70,4 +74,18 @@ class AvaliadorTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($maiores[1]->getValor(), 300);
         $this->assertEquals($maiores[2]->getValor(), 250);
     }
-}
+
+    /**
+    * @expectedException InvalidArgumentException
+    */
+
+    public function testNaoAvaliarSemLance()
+      {
+
+        $construtor = new ConstrutorDeLeilao();
+        $leilao = $construtor
+          ->para("Macbook")
+          ->constroi();
+          $this->leiloeiro->avalia($leilao);
+        }
+    }

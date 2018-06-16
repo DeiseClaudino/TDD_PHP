@@ -4,13 +4,16 @@ class Avaliador
 {
     private $maiorDeTodos = -INF;
     private $menorDeTodos = INF;
+    private $maiores;
 
     public function avalia(Leilao $leilao)
     {
-        if (count($leilao->getLances()) <= 0) {
-            throw new \Exception("Um leilão precisa ter pelo menos um lance");
+        if (count($leilao->getLances()) == 0) {
+             throw new InvalidArgumentException('Um leilao precisa ter no minimo um lance');
         }
+
         $total = 0;
+
         foreach ($leilao->getLances() as $lance) {
             if ($lance->getValor() > $this->maiorDeTodos) {
                 $this->maiorDeTodos = $lance->getValor();

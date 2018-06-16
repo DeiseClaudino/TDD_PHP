@@ -1,5 +1,5 @@
 <?php
- //require_once 'ConstrutorDeLeilao.php';
+require_once 'ConstrutorDeLeilao.php';
 require_once 'carregaClasses.php';
 
 
@@ -92,17 +92,4 @@ class LeilaoTest extends PHPUnit\Framework\TestCase
 
             $this->assertEquals(0, count($leilao->getLances()));
         }
-
-        public function testNaoAvaliarSemLance()
-        {
-          $construtor = new ConstrutorDeLeilao();
-
-          $leilao = $construtor->para("Macbook")
-          ->constroi();
-
-          $leiloeiro->avalia($leilao);
-        }
-
-
-
 }
